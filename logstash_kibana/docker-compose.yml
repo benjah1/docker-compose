@@ -1,0 +1,27 @@
+kibana:
+  image: kibana
+  command: kibana
+  links:
+    - elasticsearch
+  ports:
+    - "5601:5601"
+logstash-shipper:
+  image: logstash
+  command: logstash -f /config-dir/shipper.config
+  volumes: 
+    - ./config/logstash:/config-dir  
+  extra_hosts:
+    - "docker_host:172.17.42.1"
+  volumes_from:
+    - log-data
+logstash-indexer:
+  image: logstash
+  command: logstash -f /config-dir/indexer.config
+  volumes: 
+    - ./config/logstash:/config-dir  
+  extra_hosts:
+    - "docker_host:172.17.42.1"
+  links:
+    - elasticsearch
+elasticsearch:
+  image: elasticsearch
