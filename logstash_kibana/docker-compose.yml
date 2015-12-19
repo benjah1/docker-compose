@@ -10,18 +10,19 @@ logstash-shipper:
   command: logstash -f /config-dir/shipper.config
   volumes: 
     - ./config/logstash:/config-dir  
-  extra_hosts:
-    - "docker_host:172.17.42.1"
-  volumes_from:
-    - log-data
+  links:
+    - redis
 logstash-indexer:
   image: logstash
   command: logstash -f /config-dir/indexer.config
   volumes: 
     - ./config/logstash:/config-dir  
-  extra_hosts:
-    - "docker_host:172.17.42.1"
   links:
     - elasticsearch
+    - redis
 elasticsearch:
   image: elasticsearch
+redis:
+  image: tutum/redis
+  environment:
+    - REDIS_PASS=123
