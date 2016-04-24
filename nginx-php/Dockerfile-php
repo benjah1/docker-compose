@@ -1,0 +1,10 @@
+FROM web-base
+
+RUN apk add --update php-fpm
+
+RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php/php-fpm.conf
+
+EXPOSE 9000
+
+CMD ["php-fpm","-F"]
+
