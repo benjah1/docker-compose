@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  etcd:
+    image: daocloud.io/benjah1/etcd:2.0.10
+    ports:
+      - 2379:2379
+      - 2380:2380
+      - 4001:4001
+      - 7001:7001
+    volumes:
+      - ./data:/data
+    command: -name some-etcd

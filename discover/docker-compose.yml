@@ -1,0 +1,10 @@
+version: '2'
+services:
+
+  discover:
+    image: daocloud.io/benjah1/docker-discover
+    environment:
+      - ETCD_HOST=10.0.2.15:4001
+    ports:
+      - 0.0.0.0:1936:1936
+    network_mode: host

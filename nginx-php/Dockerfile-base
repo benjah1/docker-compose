@@ -5,6 +5,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 RUN mkdir /home/wwwroot/www -p && \
     mkdir /var/log -p
 
-VOLUME /home/wwwroot/www /var/log
+VOLUME /var/log 
 
 CMD ["true"]

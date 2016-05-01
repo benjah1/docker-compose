@@ -1,5 +1,6 @@
 version: '2'
 services:
+
   nginx:
     build:
       context: .
@@ -9,27 +10,23 @@ services:
       - 0.0.0.0:80:80
     volumes_from:
       - web-data
+    extra_hosts: 
+      - "HOST_IP:10.0.2.15"
     depends_on:
       - php-fpm
       - web-data
-    networks:
-      - net1
 
   php-fpm:
     build:
       context: .
       dockerfile: Dockerfile-php
     image: web-php
-    ports: 
-      - 0.0.0.0:9000:9000
     volumes_from:
       - web-data
+    ports:
+      - 9000
     depends_on:
       - web-data
-    networks:
-      net1:
-        aliases:
-          - php-fpm
 
   web-data:
     build:
@@ -37,8 +34,5 @@ services:
       dockerfile: Dockerfile-base
     image: web-base
     volumes:
-      - ./www:/home/wwwroot/www
       - ./log:/var/log
 
-networks:
-  net1:

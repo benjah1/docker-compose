@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  register:
+    image: daocloud.io/benjah1/docker-register
+    environment: 
+      - HOST_IP=10.0.2.15
+      - ETCD_HOST=10.0.2.15:4001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+
