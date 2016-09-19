@@ -1,0 +1,23 @@
+kibana:
+  image: kibana
+  command: kibana
+  links:
+    - elasticsearch
+  ports:
+    - "5601:5601"
+logstash-indexer:
+  image: logstash
+  command: logstash -f /config-dir/indexer.config
+  volumes: 
+    - ./config/logstash:/config-dir  
+  links:
+    - elasticsearch
+    - redis
+  ports:
+    - "5044:5044"
+elasticsearch:
+  image: elasticsearch
+redis:
+  image: tutum/redis
+  environment:
+    - REDIS_PASS=123
