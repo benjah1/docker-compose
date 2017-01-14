@@ -1,0 +1,10 @@
+{
+    "checks": {
+        "metrics-disk-usage.rb": {
+                        "type": "metric",
+                        "command": "/etc/sensu/plugins/metrics-disk-usage.rb",
+						"standalone": true,
+            "interval": 5
+        }
+    }
+}

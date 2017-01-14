@@ -1,0 +1,10 @@
+{
+    "checks": {
+        "metrics-netif.rb": {
+                        "type": "metric",
+                        "command": "/etc/sensu/plugins/metrics-netif.rb",
+						"standalone": true,
+            "interval": 5
+        }
+    }
+}

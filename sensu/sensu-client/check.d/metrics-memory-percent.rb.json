@@ -1,0 +1,10 @@
+{
+    "checks": {
+        "metrics-memory-percent.rb": {
+                        "type": "metric",
+                        "command": "/etc/sensu/plugins/metrics-memory-percent.rb",
+						"standalone": true,
+            "interval": 5
+        }
+    }
+}

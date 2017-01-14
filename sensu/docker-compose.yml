@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '8080:15672'
+    volumes:
+      - 'rabbitmq:/var/lib/rabbitmq'
+  sensu-client:
+    image: sstarcher/sensu
+    entrypoint: sensu-client -d /conf.d,/etc/sensu/check.d -L debug
+    volumes:
+      - './sensu-client:/etc/sensu'
+      - './sensu-client/conf.d:/conf.d'
+    links:
+      - rabbitmq
+    privileged: true
+  logstash:
+    image: logstash:5.1.1-alpine
+    command: logstash -f /config-dir/indexer.config
+    volumes:
+      - './logstash/config-dir:/config-dir'
+    links:
+      - elasticsearch
+      - rabbitmq
+  elasticsearch:
+    image: itzg/elasticsearch:5.1.1
+    volumes:
+      - 'elasticsearch:/data'
+    environment:
+      - 'PLUGINS=royrusso/elasticsearch-HQ'
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  kibana:
+    image: kibana:5.1.1
+    command: kibana
+    links:
+      - elasticsearch
+    ports:
+      - "8081:5601"
+
+volumes:
+  elasticsearch:
+  rabbitmq:
+

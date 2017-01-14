@@ -1,0 +1,10 @@
+{
+	"checks": {
+		"metrics-cpu-pcnt-usage": {
+			"type": "metric",
+			"command": "/etc/sensu/plugins/metrics-cpu-pcnt-usage.rb",
+			"standalone": true,
+			"interval": 5
+		}
+	}
+}
