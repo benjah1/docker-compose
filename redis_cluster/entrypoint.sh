@@ -7,8 +7,8 @@ delay () {
   "${@}";
 }
 
-if [ "$1" = 'init' ]; then
-	delay 10 redis-trib.rb add-node --slave $(hostname -i):6379 $2:6379 &
+if [ "$1" = 'slave' ]; then
+	delay 10 redis-trib.rb add-node --slave $(hostname -i):$2 $3 &
 fi
 
 redis-server /usr/local/etc/redis/redis.conf
