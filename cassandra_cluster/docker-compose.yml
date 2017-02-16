@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  cassandra1:
+    image: benjah1/cassandra-cluster:v1
+    environment:
+      - SEED=tasks.cassandra2,tasks.cassandra3
+    networks: 
+      - mynet
+    ports: 
+      - 9160:9160
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  cassandra2:
+    image: benjah1/cassandra-cluster:v1
+    environment:
+      - SEED=tasks.cassandra1,tasks.cassandra3
+    networks: 
+      - mynet
+    ports: 
+      - 9161:9160
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  cassandra3:
+    image: benjah1/cassandra-cluster:v1
+    environment:
+      - SEED=tasks.cassandra1,tasks.cassandra2
+    networks: 
+      - mynet
+    ports: 
+      - 9162:9160
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
