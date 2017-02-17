@@ -1,4 +1,4 @@
-FROM cassandra:3.0.10
+FROM cassandra:3.9
 
 RUN apt-get update && \
 		apt-get install dnsutils -y
